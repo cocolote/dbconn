@@ -76,4 +76,6 @@ class CtrlSession():
         return self.session
 
     def __exit__(self, e_type, e_value, e_tback):
+        # TODO: evaluate response to know if we need to commit, rollback or
+        # close the session 
         self.session.close()
