@@ -1,6 +1,6 @@
 .env
 *.yaml
-venv/*
+v*/*
 dbconn.egg-info/*
 dist/*
 *.pyc

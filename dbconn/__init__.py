@@ -4,6 +4,7 @@ import yaml
 
 import pyodbc
 import sqlalchemy as sa
+from contextlib import contextmanager
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -16,11 +17,20 @@ APP_VERSION = '.'.join([i for i in __versionnum__])
 # CONNECTION CLASS
 class DBconn():
 
-    '''Class to handle the connections and session with the DB'''
+    '''
+    Class to handle the connections and session with the DB
+
+    how to use it: instantiate the DBconn class with two parameters
+        1) path to the db_conf.yaml file
+        2) code_status, for example, DEV to connect to the DEV DB.
+
+    From the class you can get the Base class already associated to
+    the engine, a session and a session_scope to use on a with statement
+    '''
 
     def __init__(self, db_conf):
         self.db_conf = db_conf.upper()
-        self.engine = sa.create_engine(self.get_connection_string())
+        self.engine  = sa.create_engine(self.get_connection_string())
 
     def get_connection_string(self):
 
@@ -67,15 +77,14 @@ class DBconn():
         Session = sessionmaker(bind=self.engine)
         return Session()
 
-class CtrlSession():
-    def __init__(self, engine):
-        Session = sessionmaker(bind=engine)
-        self.session = Session()
-
-    def __enter__(self):
-        return self.session
-
-    def __exit__(self, e_type, e_value, e_tback):
-        # TODO: evaluate response to know if we need to commit, rollback or
-        # close the session 
-        self.session.close()
+    @contextmanager
+    def session_scope(self):
+        session = self.get_session()
+        try:
+            yield session
+            session.commit()
+        except:
+            session.rollback()
+            raise
+        finally:
+            session.close()
