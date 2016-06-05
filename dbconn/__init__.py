@@ -28,13 +28,14 @@ class DBconn():
     the engine, a session and a session_scope to use on a with statement
     '''
 
-    def __init__(self, db_conf):
+    def __init__(self, db_conf, dbconf_path=''):
         self.db_conf = db_conf.upper()
         self.engine  = sa.create_engine(self.get_connection_string())
+        self.dbconf_path = dbconf_path
 
     def get_connection_string(self):
 
-        with open('dbconf.yaml') as f:
+        with open(self.dbconf_path+'dbconf.yaml') as f:
             conf = yaml.safe_load(f)
 
         if sys.platform == 'linux':
