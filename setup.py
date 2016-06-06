@@ -1,114 +1,61 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Based on https://github.com/pypa/sampleproject/blob/master/setup.py."""
-from __future__ import unicode_literals
-# To use a consistent encoding
-import codecs
-import os
-from setuptools import setup, find_packages
-import sys
-
-#  Shortcut for building/publishing to Pypi
-# we are not pushing any of this for ATG
-if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist bdist_wheel')
-    #  os.system('python setup.py sdist bdist_wheel upload')
-    sys.exit()
 
 
-def parse_reqs(req_path='./requirements.txt'):
-    """Recursively parse requirements from nested pip files."""
-    install_requires = []
-    with codecs.open(req_path, 'r') as handle:
-        # remove comments and empty lines
-        lines = (line.strip() for line in handle
-                 if line.strip() and not line.startswith('#'))
-
-        for line in lines:
-            # check for nested requirements files
-            if line.startswith('-r'):
-                # recursively call this function
-                install_requires += parse_reqs(req_path=line[3:])
-
-            else:
-                # add the line as a new requirement
-                install_requires.append(line)
-
-    return install_requires
+from setuptools import setup
 
 
-def parse_readme():
-    """Parse contents of the README."""
-    # Get the long description from the relevant file
-    here = os.path.abspath(os.path.dirname(__file__))
-    readme_path = os.path.join(here, 'README.md')
-    with codecs.open(readme_path, encoding='utf-8') as handle:
-        long_description = handle.read()
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
 
-    return long_description
+with open('HISTORY.rst') as history_file:
+    history = history_file.read()
 
+requirements = [
+    'Click>=6.0',
+    # TODO: put package requirements here
+]
+
+test_requirements = [
+    # TODO: put package test requirements here
+]
 
 setup(
     name='dbconn',
-
-    # Versions should comply with PEP440. For a discussion on
-    # single-sourcing the version across setup.py and the project code,
-    # see http://packaging.python.org/en/latest/tutorial.html#version
     version='0.0.1',
-
-    description='Library to connect to a DB with sqlalchemy.',
-    long_description=parse_readme(),
-    # What does your project relate to? Separate with spaces.
-    keywords='dbconn development',
-    author='Ezequiel Lopez',
-    author_email='elopez@atg.travel',
-
-    packages=find_packages(exclude=('tests*', 'docs', 'examples')),
-
-    # If there are data files included in your packages that need to be
-    # installed, specify them here.
+    description="Easy to use connection library for SQL databases.",
+    long_description=readme + '\n\n' + history,
+    author="Ezequiel Lopez, Chris Coe",
+    author_email='skiel.j.lopez@gmail.com, chrcoe01@gmail.com',
+    url='https://github.com/cocolote/dbconn',
+    packages=[
+        'dbconn',
+    ],
+    package_dir={'dbconn':
+                 'dbconn'},
+    entry_points={
+        'console_scripts': [
+            'dbconn=dbconn.cli:main'
+        ]
+    },
     include_package_data=True,
+    install_requires=requirements,
+    license="GNU General Public License v3",
     zip_safe=False,
-
-    # Install requirements loaded from ``requirements.txt``
-    install_requires=parse_reqs(),
-
-    # custom dependency links
-    # dependency_links = [
-    #     'http://dev.ts24.com/atg_python_packages/opsconnector-0.0.1.tar.gz',
-    # ],
-
-
-    # test_suite='tests',
-
-    # To provide executable scripts, use entry points in preference to the
-    # "scripts" keyword. Entry points provide cross-platform support and
-    # allow pip to create the appropriate form of executable for the
-    # target platform.
-    entry_points=dict(
-        console_scripts=[
-            'dbconn = dbconn.__init__:DBconn',
-        ],
-    ),
-
-    # See: http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    keywords='dbconn',
     classifiers=[
-        # How mature is this project? Common values are:
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
-
-        # Indicate who your project is intended for
+        'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-        'Topic :: Software Development',
-
-        # that you indicate whether you support Python 2, Python 3 or both.
+        'License :: OSI Approved :: GNU General Public License',
+        'Natural Language :: English',
+        "Programming Language :: Python :: 2",
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
-
-        'Environment :: Console',
     ],
+    test_suite='tests',
+    tests_require=test_requirements
 )
