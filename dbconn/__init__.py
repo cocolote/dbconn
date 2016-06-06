@@ -14,29 +14,36 @@ __author__ = 'Ezequiel Lopez'
 __email__ = 'skiel.j.lopez@gmail.com'
 __version__ = '0.0.1'
 
-# CONNECTION CLASS
-
 
 class DBconn():
-
     '''
     Class to handle the connections and session with the DB
 
     how to use it: instantiate the DBconn class with two parameters
-        1) path to the db_conf.yaml file
+        1) path to the db_conf.yml file
         2) code_status, for example, DEV to connect to the DEV DB.
 
     From the class you can get the Base class already associated to
     the engine, a session and a session_scope to use on a with statement
     '''
+    # TODO: add logging to the library
+    # TODO: seems like there might be a class here even though it might make
+    # more sense to just have methods that get called from the dbconn module
+    # directly.
 
     def __init__(self, db_conf, dbconf_path=''):
+        '''
+        :param db_conf: path to YAML DB config file
+        :param dbconf_path: path to YAML DB config file
+        '''
+        # TODO: figure out params ... these both seem to be for the same
+        # purpose but one of them does nothing.
         self.db_conf = db_conf.upper()
         self.engine = sa.create_engine(self.get_connection_string())
 
     def get_connection_string(self):
 
-        with open('dbconf.yaml') as f:
+        with open('dbconf.yml') as f:
             conf = yaml.safe_load(f)
 
         if sys.platform == 'linux':
@@ -57,6 +64,8 @@ class DBconn():
                 tds_v=conf[self.db_conf]['TDS_VERSION']
             ))
         else:
+            # TODO: check this .. this does not look right for Windows
+            # what happens if the user has Mac?
             return 'mssql+pyodbc:///?odbc_connect=' + urllib.parse.quote_plus((
                 'DRIVER=FreeTDS;'
                 'SERVER={server};'

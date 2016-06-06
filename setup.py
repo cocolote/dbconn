@@ -13,10 +13,14 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Click>=6.0',
+    'sqlalchemy>=1.0.12',
+    'pyodbc>=3.0.10',
+    'pyyaml>=3.11',
     # TODO: put package requirements here
 ]
 
 test_requirements = [
+    'pytest>=2.9.2',
     # TODO: put package test requirements here
 ]
 
@@ -48,9 +52,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
