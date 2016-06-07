@@ -1,4 +1,4 @@
 pyodbc==3.0.10
 python-env==1.0.0
 PyYAML==3.11
-SQLAlchemy==1.0.12
+SQLAlchemy==1.0.13

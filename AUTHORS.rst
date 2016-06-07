@@ -2,10 +2,11 @@
 Credits
 =======
 
-Development Lead
-----------------
+Development Leads
+-----------------
 
 * Ezequiel Lopez <skiel.j.lopez@gmail.com>
+* Chris Coe <chrcoe01@gmail.com>
 
 Contributors
 ------------

@@ -23,35 +23,17 @@ with CtrlSession() as session:
     result = session.query(MyModel).all()
 ```
 ---
-###Requirements
-- Python 3.4
-- pyodbc 3.0.10
-- PyYAML 3.11
-- SQLAlchemy 1.0.12
 
-###Installation
-- Clone the repo.
-- In the dbconn execute this command:
-```
-$ python setup.py sdist
-```
-This will create a distribution file that you can use to install the module
-into the your application's virtual enviroment
+### Quick Start
 
-- To install the module run this code with your virtual environment activated:
-```
-$ pip install path/to/clone/repo/dbconn/dist/dbcon/dbconn-0.0.1.tar.gz
-```
-- After the installations is completed, run this command to see if the module
-  was installed in your virtual env.
-```
-$ pip freeze
-dbconn==0.0.1
-```
+Install via pip:
+
+    $ pip install dbconn
+
 ---
 
 ###Configuration
-Add a __dbconf.yaml__ like this to your project:
+Add a __dbconf.yml__ like this to your project:
 
 ```
 DEV:
@@ -81,3 +63,10 @@ Then with this object you can request a Base object to use in your models
 ```
 Base = conn.Base()
 ```
+
+You can override the location of the dbconf file:
+```
+conn = DBconn('prod', '/path/to/conf/file.yml')
+Base = conn.Base()
+```
+

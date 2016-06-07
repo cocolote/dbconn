@@ -36,7 +36,7 @@ Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/cocolote/dbconn/tarball/master
+    $ curl -OL https://github.com/cocolote/dbconn/tarball/master
 
 Once you have a copy of the source, you can install it with:
 

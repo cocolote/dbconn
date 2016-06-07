@@ -25,7 +25,8 @@ Easy to use connection library for many types of SQL databases.
 Features
 --------
 
-* TODO
+* Provides SQL connection
+* Supports MSSQL
 
 Credits
 ---------

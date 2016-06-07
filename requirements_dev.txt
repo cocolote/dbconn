@@ -8,3 +8,4 @@ Sphinx==1.4.3
 cryptography==1.4
 PyYAML==3.11
 pytest==2.9.2
+sphinx_rtd_theme==0.1.9

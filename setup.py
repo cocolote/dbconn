@@ -12,10 +12,10 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'Click>=6.0',
     'sqlalchemy>=1.0.12',
     'pyodbc>=3.0.10',
     'pyyaml>=3.11',
+    'python-env>=1.0.0',
     # TODO: put package requirements here
 ]
 
@@ -37,11 +37,6 @@ setup(
     ],
     package_dir={'dbconn':
                  'dbconn'},
-    entry_points={
-        'console_scripts': [
-            'dbconn=dbconn.cli:main'
-        ]
-    },
     include_package_data=True,
     install_requires=requirements,
     license="GNU General Public License v3",
