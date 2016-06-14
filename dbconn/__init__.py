@@ -38,6 +38,14 @@ class DBconn():
         '''
         # TODO: figure out params ... these both seem to be for the same
         # purpose but one of them does nothing.
+
+        # db_conf is the CODE_STATUS, this is the key required to read from the
+        # yaml file the different DB configurations depending if you are
+        # working on Development, Test or Production
+
+        # engine is used through the class to instantiate the declarative_base
+        # class and the session. In this way we attempt to connect only once,
+        # when the DBconn class is instantiated
         self.db_conf = db_conf.upper()
         self.engine = sa.create_engine(self.get_connection_string())
 
